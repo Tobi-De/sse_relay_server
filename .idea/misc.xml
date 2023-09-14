@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Black">
+    <option name="enabledOnSave" value="true" />
+    <option name="executionMode" value="BINARY" />
+    <option name="pathToExecutable" value="$USER_HOME$/.local/bin/black" />
+    <option name="sdkUUID" value="c4359ab4-15ea-4c59-b54b-850c6716a371" />
+  </component>
+  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.11 (sse_relay_server)" project-jdk-type="Python SDK" />
+</project>
