@@ -15,6 +15,7 @@ django==4.2.5
 h11==0.14.0
 httptools==0.6.0
 idna==3.4
+loguru==0.7.2
 psycopg==3.1.10
 psycopg-c==3.1.10
 python-dotenv==1.0.0

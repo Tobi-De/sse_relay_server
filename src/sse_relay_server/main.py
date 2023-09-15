@@ -3,6 +3,8 @@ import json
 import uvicorn
 import psycopg
 import argparse
+from loguru import logger
+
 
 from sse_starlette.sse import EventSourceResponse, ServerSentEvent
 from starlette.applications import Starlette
@@ -31,8 +33,9 @@ async def event_publisher(request: Request):
         await acursor.execute(f"LISTEN {channel}")
         generator = aconnection.notifies()
         async for notify_message in generator:
-            print(json.loads(notify_message.payload))
-            yield ServerSentEvent(**json.loads(notify_message.payload))
+            payload = json.loads(notify_message.payload)
+            logger.debug(f"Received from {channel}: {payload}")
+            yield ServerSentEvent(**payload)
 
 
 async def sse(request: Request):
@@ -79,6 +82,11 @@ def main():
         default=False,
     )
     parser.add_argument("--workers", type=int)
+    parser.add_argument(
+        "--log-level",
+        default="info",
+        choices=["critical", "error", "warning", "info", "debug", "trace"],
+    )
 
     args = parser.parse_args()
 
