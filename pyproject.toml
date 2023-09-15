@@ -1,10 +1,8 @@
 [project]
 name = "sse-relay-server"
-version = "0.1.0"
+version = "0.1.2"
 description = "Add your description here"
-authors = [
-    { name = "Tobi DEGNON", email = "tobidegnon@proton.me" }
-]
+authors = [{ name = "Tobi DEGNON", email = "tobidegnon@proton.me" }]
 dependencies = [
     "starlette>=0.31.1",
     "sse-starlette>=1.6.5",
@@ -16,19 +14,16 @@ dependencies = [
 readme = "README.md"
 requires-python = ">= 3.8"
 
+[project.scripts]
+sse-relay-server = "sse_relay_server.main:main"
+
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.rye]
 managed = true
-dev-dependencies = [
-    "black>=23.9.1",
-]
-
-[tool.rye.scripts]
-sse-relay-server = { call = "sse_relay_server.main" }
-
+dev-dependencies = ["black>=23.9.1"]
 
 [tool.hatch.metadata]
 allow-direct-references = true
