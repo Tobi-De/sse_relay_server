@@ -34,3 +34,7 @@ def get_database_params() -> dict:
         "password": parsed_params["PASSWORD"],
         "host": parsed_params["HOST"],
     }
+
+
+def get_sse_redis_url() -> str | None:
+    pass
