@@ -23,8 +23,7 @@ docker pull ghcr.io/tobi-de/sse_relay_server:latest
 
 ## Protocols supported
 
--
-postgresql [listen](https://www.postgresql.org/docs/current/sql-listen.html)/[notify](https://www.postgresql.org/docs/15/sql-notify.html)
+- postgresql [listen](https://www.postgresql.org/docs/current/sql-listen.html)/[notify](https://www.postgresql.org/docs/15/sql-notify.html)
 - redis [pub/sub](https://redis.io/topics/pubsub)
 
 ## Environment variables
