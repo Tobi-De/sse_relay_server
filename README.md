@@ -14,5 +14,5 @@ pip install sse-relay-server
 ```
 As a container
 ```sh
-docker pull ghcr.io/tobi-de/sse_relay_server:main
+docker pull ghcr.io/tobi-de/sse_relay_server:latest
 ```
