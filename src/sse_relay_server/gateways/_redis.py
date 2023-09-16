@@ -6,8 +6,6 @@ import redis.asyncio as async_redis
 from loguru import logger
 from sse_starlette import ServerSentEvent
 
-STOPWORD = "STOP"
-
 
 class RedisGateway:
     def __init__(self, redis_url: str) -> None:

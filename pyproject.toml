@@ -1,6 +1,6 @@
 [project]
 name = "sse-relay-server"
-version = "0.1.4"
+version = "0.2.0"
 description = "Add your description here"
 authors = [{ name = "Tobi DEGNON", email = "tobidegnon@proton.me" }]
 dependencies = [
