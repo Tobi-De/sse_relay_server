@@ -1,7 +1,7 @@
 [project]
 name = "sse-relay-server"
 version = "0.2.1"
-description = "Add your description here"
+description = "An SSE Relay Service: Perfect for Adding Real-Time Features to Your Django Project Without Introducing ASGI or Async Code."
 authors = [{ name = "Tobi DEGNON", email = "tobidegnon@proton.me" }]
 dependencies = [
     "starlette>=0.31.1",
@@ -15,6 +15,30 @@ dependencies = [
 ]
 readme = "README.md"
 requires-python = ">= 3.8"
+license = { file = "LICENSE" }
+keywords = ["python", "django", "postgresql", "redis", "realtime"]
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+    "Framework :: Django :: 4",
+    "Framework :: Django :: 4.0",
+    "Framework :: Django :: 4.1",
+    "Framework :: Django :: 4.2",
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
+]
+
+[project.urls]
+Homepage = "https://github.com/Tobi-De/sse_relay_server"
+Documentation = "https://github.com/Tobi-De/sse_relay_server"
+Repository = "https://github.com/Tobi-De/sse_relay_server"
 
 [project.scripts]
 sse-relay-server = "sse_relay_server.main:main"
