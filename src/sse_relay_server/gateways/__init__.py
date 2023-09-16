@@ -17,7 +17,7 @@ def _select_gateway():
     if postgres_url := get_postgres_url():
         return PostgresGateway(postgres_url)
     else:
-        raise ConfigurationError("Set either SSE_REDIS_URL or SSE_DATABASE_URL")
+        raise ConfigurationError("Set either REDIS_URL or DATABASE_URL")
 
 
 gateway = _select_gateway()
