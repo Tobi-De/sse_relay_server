@@ -1,49 +1,41 @@
-import json
+from __future__ import annotations
+
+import argparse
 
 import uvicorn
-import psycopg
-import argparse
-from loguru import logger
-
-
-from sse_starlette.sse import EventSourceResponse, ServerSentEvent
+from sse_starlette import ServerSentEvent
+from sse_starlette.sse import EventSourceResponse
 from starlette.applications import Starlette
 from starlette.middleware import Middleware
 from starlette.middleware.cors import CORSMiddleware
 from starlette.requests import Request
 from starlette.routing import Route
-from .config import get_database_params, get_allowed_origins, get_debug_value
 
+from .config import get_allowed_origins, get_debug_value
+from .gateways import gateway
 
-DATABASE_PARAMS = get_database_params()
 SSE_SERVER_DEBUG = get_debug_value()
 ALLOWED_ORIGINS = get_allowed_origins()
 
 
-async def event_publisher(request: Request):
-    aconnection = await psycopg.AsyncConnection.connect(
-        **DATABASE_PARAMS,
-        autocommit=True,
+async def generate_stop_event():
+    # Set a high retry interval (e.g., 1 year in milliseconds)
+    retry_interval = 365 * 24 * 60 * 60 * 1000
+    yield ServerSentEvent(
+        "Please stop, there is nothing here ;(",
+        retry=retry_interval,
+        comment="Shut down the connection",
     )
-    channel = request.query_params.get("channel")
-    if not channel:
-        return
-
-    async with aconnection.cursor() as acursor:
-        await acursor.execute(f"LISTEN {channel}")
-        generator = aconnection.notifies()
-        async for notify_message in generator:
-            payload = json.loads(notify_message.payload)
-            logger.debug(f"Received from {channel}: {payload}")
-            yield ServerSentEvent(**payload)
 
 
 async def sse(request: Request):
-    return EventSourceResponse(event_publisher(request))
+    if channel := request.query_params.get("channel"):
+        return EventSourceResponse(gateway.listen(channel))
+    else:
+        return EventSourceResponse(generate_stop_event())
 
 
 routes = [Route("/", endpoint=sse)]
-
 
 middleware = [
     Middleware(
