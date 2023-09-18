@@ -1,18 +1,30 @@
 import json
+import httpx
 from typing import AsyncGenerator
 
 import redis
 import redis.asyncio as async_redis
 from loguru import logger
 from sse_starlette import ServerSentEvent
+from ..config import get_last_messages_endpoint_url
 
 
 class RedisGateway:
     def __init__(self, redis_url: str) -> None:
         self.redis_url = redis_url
 
-    async def listen(self, channel: str) -> AsyncGenerator[ServerSentEvent, None]:
+    async def listen(self, channel: str, last_id: str|None) -> AsyncGenerator[ServerSentEvent, None]:
         r = async_redis.from_url(self.redis_url)
+
+        if last_id:
+            last_messages = httpx.get(
+                f"{get_last_messages_endpoint_url()}/{channel}/{last_id}"
+            )
+            for message in last_messages:
+                payload = json.loads(message)
+                logger.debug(f"Received from {channel}: {payload}")
+                yield ServerSentEvent(**payload)
+
         async with r.pubsub() as pubsub:
             await pubsub.subscribe(channel)
             while True:

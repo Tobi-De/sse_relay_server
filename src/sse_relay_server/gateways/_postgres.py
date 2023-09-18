@@ -1,4 +1,5 @@
 import json
+import httpx
 from typing import AsyncGenerator
 
 import dj_database_url
@@ -6,7 +7,7 @@ import psycopg
 from loguru import logger
 from sse_starlette import ServerSentEvent
 
-from ..config import ConfigurationError
+from ..config import ConfigurationError, get_last_messages_endpoint_url
 
 
 class PostgresGateway:
@@ -26,11 +27,20 @@ class PostgresGateway:
             "host": parsed_params["HOST"],
         }
 
-    async def listen(self, channel: str) -> AsyncGenerator[ServerSentEvent, None]:
+    async def listen(self, channel: str, last_id: str|None) -> AsyncGenerator[ServerSentEvent, None]:
         connection = await psycopg.AsyncConnection.connect(
             **self.db_params,
             autocommit=True,
         )
+
+        if last_id:
+            last_messages = httpx.get(
+                f"{get_last_messages_endpoint_url()}/{channel}/{last_id}"
+            )
+            for message in last_messages:
+                payload = json.loads(message)
+                logger.debug(f"Received from {channel}: {payload}")
+                yield ServerSentEvent(**payload)
 
         async with connection.cursor() as cursor:
             await cursor.execute(f"LISTEN {channel}")
