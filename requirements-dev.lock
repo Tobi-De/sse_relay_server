@@ -10,11 +10,14 @@
 anyio==4.0.0
 asgiref==3.7.2
 black==23.9.1
+certifi==2023.7.22
 click==8.1.7
 dj-database-url==2.1.0
 django==4.2.5
 h11==0.14.0
+httpcore==0.18.0
 httptools==0.6.0
+httpx==0.25.0
 idna==3.4
 loguru==0.7.2
 mypy-extensions==1.0.0

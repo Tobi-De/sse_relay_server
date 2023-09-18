@@ -26,3 +26,6 @@ def get_postgres_url() -> str | None:
 
 def get_redis_url() -> str | None:
     return os.getenv("REDIS_URL")
+
+def get_last_messages_endpoint_url() :
+    return os.getenv("LAST_MESSAGES_ENDPOINT_URL")

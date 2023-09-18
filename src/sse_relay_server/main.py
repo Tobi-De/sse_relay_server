@@ -29,8 +29,9 @@ async def generate_stop_event():
 
 
 async def sse(request: Request):
+    last_id = request.query_params.get("LAST-EVENT-ID")
     if channel := request.query_params.get("channel"):
-        return EventSourceResponse(gateway.listen(channel))
+        return EventSourceResponse(gateway.listen(channel, last_id))
     else:
         return EventSourceResponse(generate_stop_event())
 
