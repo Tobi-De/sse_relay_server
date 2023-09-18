@@ -42,7 +42,7 @@ class PostgresGateway:
                 )
                 with suppress(json.JSONDecodeError):
                     last_messages = response.json()
-                    for message in last_messages:
+                    async for message in last_messages:
                         yield ServerSentEvent(**message)
 
         async with connection.cursor() as cursor:
