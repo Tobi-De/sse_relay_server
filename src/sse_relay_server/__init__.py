@@ -1,4 +1,4 @@
-from .gateways import gateway
+from .brokers import broker
 
-notify = gateway.notify
-listen = gateway.listen
+notify = broker.notify
+listen = broker.listen

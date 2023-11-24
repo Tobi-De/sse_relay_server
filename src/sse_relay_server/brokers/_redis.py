@@ -7,7 +7,7 @@ from loguru import logger
 from sse_starlette import ServerSentEvent
 
 
-class RedisGateway:
+class RedisBroker:
     def __init__(self, redis_url: str) -> None:
         self.redis_url = redis_url
 

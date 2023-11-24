@@ -7,23 +7,23 @@ from sse_relay_server.config import (
     get_redis_url,
     get_postgres_url,
 )
-from ._postgres import PostgresGateway
-from ._redis import RedisGateway
+from ._postgres import PostgresBroker
+from ._redis import RedisBroker
 
 
-def _select_gateway():
+def _select_broker():
     if redis_url := get_redis_url():
-        return RedisGateway(redis_url)
+        return RedisBroker(redis_url)
     if postgres_url := get_postgres_url():
-        return PostgresGateway(postgres_url)
+        return PostgresBroker(postgres_url)
     else:
         raise ConfigurationError("Set either REDIS_URL or DATABASE_URL")
 
 
-gateway = _select_gateway()
+broker = _select_broker()
 
 
-class Gateway(Protocol):
+class Broker(Protocol):
     async def listen(self, channel: str) -> AsyncGenerator[ServerSentEvent, None]:
         ...
 

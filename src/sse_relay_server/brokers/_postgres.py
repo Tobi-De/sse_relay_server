@@ -9,7 +9,7 @@ from sse_starlette import ServerSentEvent
 from ..config import ConfigurationError
 
 
-class PostgresGateway:
+class PostgresBroker:
     def __init__(self, postgres_url: str) -> None:
         self.postgres_url = postgres_url
         parsed_params = dj_database_url.parse(postgres_url)
