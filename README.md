@@ -52,6 +52,7 @@ To configure sse-relay-server, you can use the following environment variables:
 - `DATABASE_URL`: PostgreSQL database URL.
 - `REDIS_URL`: Redis URL (if you prefer to use Redis instead of PostgreSQL).
 - `RELAY_SERVER_DEBUG`: Boolean for enabling debug mode (default to False).
+- `LOG_LEVEL`: CRITICAL | ERROR | WARNING | INFO | DEBUG | TRACE   (default to INFO)
 
 If the `REDIS_URL` environment variable is set, the redis pubsub protocol will be used instead of the PostgreSQL
 listen/notify.
@@ -61,13 +62,13 @@ listen/notify.
 If installed via pip, simply execute the following command, adjusting the options as needed:
 
 ```sh
-sse-relay-server --port 8001 --host 0.0.0.0 --workers 4 --log-level debug
+sse-relay-server --port 8001 --host 0.0.0.0 --workers 4
 ```
 
 For Docker users, override the running command as follows:
 
 ```sh
-docker run -it sse_relay_server sse-relay-server --port 8001 --host 0.0.0.0 --workers 4 --log-level debug
+docker run -it sse_relay_server sse-relay-server --port 8001 --host 0.0.0.0 --workers 4
 ```
 
 ## Establishing an SSE Connection with the Relay Service

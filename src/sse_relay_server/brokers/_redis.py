@@ -3,8 +3,10 @@ from typing import AsyncGenerator
 
 import redis
 import redis.asyncio as async_redis
-from loguru import logger
+import structlog
 from sse_starlette import ServerSentEvent
+
+logger = structlog.stdlib.get_logger("brokers.postgres")
 
 
 class RedisBroker:

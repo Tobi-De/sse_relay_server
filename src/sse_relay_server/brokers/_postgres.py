@@ -3,10 +3,12 @@ from typing import AsyncGenerator
 
 import dj_database_url
 import psycopg
-from loguru import logger
+import structlog
 from sse_starlette import ServerSentEvent
 
 from ..config import ConfigurationError
+
+logger = structlog.stdlib.get_logger("brokers.postgres")
 
 
 class PostgresBroker:

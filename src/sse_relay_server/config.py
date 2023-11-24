@@ -26,3 +26,7 @@ def get_postgres_url() -> str | None:
 
 def get_redis_url() -> str | None:
     return os.getenv("REDIS_URL")
+
+
+def get_log_level() -> str:
+    return os.getenv("LOG_LEVEL", "INFO")
