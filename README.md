@@ -18,7 +18,7 @@ straightforward real-time capabilities without the need for Daphne and async Dja
 <summary>Explanation</summary>
 
 1. The browser establishes an SSE connection to the running relay service (this project).
-2. The relay service listens on the channel specified in the user request via the query parameter `channel`.
+2. The relay service listens on the channel specified in the user request via the path parameter `channel`.
 3. When a user action occurs on your Django server, you run the [`notify`](#sending-messages-from-your-django-app) function, sending an event to either `PostgreSQL` or `Redis` based on your configuration.
 4. The relay service receives the message from the broker (`Redis`/`PostgreSQL`).
 5. Subsequently, the relay sends the message via SSE to all web browsers subscribed to the specified channel.
@@ -78,7 +78,7 @@ docker run -it sse_relay_server sse-relay-server --port 8001 --host 0.0.0.0 --wo
 const channelName = "NOTIFICATIONS"
 const severURL = "http://<server_host>:<relay_port>"
 
-const eventSource = new EventSource(`${serverURL}?channel=${channelName}`);
+const eventSource = new EventSource(`${serverURL}/channel=${channelName}`);
 
 eventSource.addEventListener('NEW_NOTIFICATION', (e) => {
     console.log(e.data)
@@ -150,3 +150,7 @@ def notify(channel: str, sse_payload: dict) -> None:
     r = redis.from_url(REDIS_URL)
     r.publish(channel=channel, message=json.dumps(sse_payload))
 ```
+
+## Stopping the SSE Connection
+
+As far as I know, there is no standard method for stopping an established SSE connection. The most straightforward solution is to send a specific event, such as one named `STOP``, and handle it on the frontend.

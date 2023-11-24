@@ -11,15 +11,22 @@ annotated-types==0.6.0
 anyio==4.1.0
 asgi-correlation-id==4.2.0
 asgiref==3.7.2
+cfgv==3.4.0
 click==8.1.7
+distlib==0.3.7
 dj-database-url==2.1.0
 django==4.2.7
 fastapi==0.1.17
+filelock==3.13.1
 h11==0.14.0
 httptools==0.6.1
+identify==2.5.32
 idna==3.4
 markdown-it-py==3.0.0
 mdurl==0.1.2
+nodeenv==1.8.0
+platformdirs==4.0.0
+pre-commit==3.5.0
 psycopg==3.1.13
 psycopg-c==3.1.13
 pydantic==2.5.2
@@ -37,5 +44,8 @@ structlog==23.2.0
 typing-extensions==4.8.0
 uvicorn==0.24.0.post1
 uvloop==0.19.0
+virtualenv==20.24.7
 watchfiles==0.21.0
 websockets==12.0
+# The following packages are considered to be unsafe in a requirements file:
+setuptools==69.0.2

@@ -7,7 +7,6 @@ import structlog
 import uvicorn
 from asgi_correlation_id import CorrelationIdMiddleware
 from asgi_correlation_id.context import correlation_id
-from sse_starlette import ServerSentEvent
 from sse_starlette.sse import EventSourceResponse
 from starlette.applications import Starlette
 from starlette.middleware import Middleware
@@ -28,25 +27,11 @@ setup_logging(json_logs=False, log_level=get_log_level())
 relay_logger = structlog.stdlib.get_logger("sse_relay_server")
 
 
-async def generate_stop_event():
-    # Set a high retry interval (e.g., 1 year in milliseconds)
-    retry_interval = 365 * 24 * 60 * 60 * 1000
-    relay_logger.debug("Shutting down the connection")
-    yield ServerSentEvent(
-        "Please stop, there is nothing here ;(",
-        retry=retry_interval,
-        comment="Shut down the connection",
-    )
-
-
 async def sse(request: Request):
-    if channel := request.query_params.get("channel"):
-        return EventSourceResponse(listen(channel))
-    else:
-        return EventSourceResponse(generate_stop_event())
+    return EventSourceResponse(listen(request.path_params.get("channel")))
 
 
-routes = [Route("/", endpoint=sse)]
+routes = [Route("/{channel}", endpoint=sse)]
 
 middleware = [
     Middleware(
