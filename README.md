@@ -89,9 +89,9 @@ Once you've installed this package in your Django project, you can use a simple 
 function works for both Redis and PostgreSQL.
 
 ```python
-from sse_relay_server.gateways import gateway
+from sse_relay_server import notify
 
-gateway.notify(
+notify(
     channel="Notifications",
     sse_payload={
         "event": "NEW_NOTIFICATION",

@@ -13,7 +13,7 @@ from starlette.routing import Route
 from loguru import logger
 
 from .config import get_allowed_origins, get_debug_value
-from .gateways import gateway
+from . import listen
 
 SSE_SERVER_DEBUG = get_debug_value()
 ALLOWED_ORIGINS = get_allowed_origins()
@@ -33,7 +33,7 @@ async def generate_stop_event():
 async def sse(request: Request):
     logger.debug(f"Received connection request: {request}")
     if channel := request.query_params.get("channel"):
-        return EventSourceResponse(gateway.listen(channel))
+        return EventSourceResponse(listen(channel))
     else:
         return EventSourceResponse(generate_stop_event())
 
