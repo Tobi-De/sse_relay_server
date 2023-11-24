@@ -17,7 +17,7 @@ class PostgresGateway:
             "django.db.backends.postgresql_psycopg2",
             "django.db.backends.postgresql",
         ]:
-            raise ConfigurationError("A postgresql database is require")
+            raise ConfigurationError("Only PostgreSQL is supported")
         self.db_params = {
             "client_encoding": "UTF8",
             "dbname": parsed_params["NAME"],
@@ -33,6 +33,7 @@ class PostgresGateway:
         )
 
         async with connection.cursor() as cursor:
+            logger.debug(f"Listening to {channel}")
             await cursor.execute(f"LISTEN {channel}")
             generator = connection.notifies()
             async for notify_message in generator:
@@ -45,5 +46,6 @@ class PostgresGateway:
             **self.db_params,
             autocommit=True,
         )
+        logger.debug(f"Publishing to {channel}: {sse_payload}")
         with connection.cursor() as cursor:
             cursor.execute(f"NOTIFY {channel}, '{json.dumps(sse_payload)}'")

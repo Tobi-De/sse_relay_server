@@ -10,6 +10,7 @@ from starlette.middleware import Middleware
 from starlette.middleware.cors import CORSMiddleware
 from starlette.requests import Request
 from starlette.routing import Route
+from loguru import logger
 
 from .config import get_allowed_origins, get_debug_value
 from .gateways import gateway
@@ -21,6 +22,7 @@ ALLOWED_ORIGINS = get_allowed_origins()
 async def generate_stop_event():
     # Set a high retry interval (e.g., 1 year in milliseconds)
     retry_interval = 365 * 24 * 60 * 60 * 1000
+    logger.debug("Shutting down the connection")
     yield ServerSentEvent(
         "Please stop, there is nothing here ;(",
         retry=retry_interval,
@@ -29,6 +31,7 @@ async def generate_stop_event():
 
 
 async def sse(request: Request):
+    logger.debug(f"Received connection request: {request}")
     if channel := request.query_params.get("channel"):
         return EventSourceResponse(gateway.listen(channel))
     else:

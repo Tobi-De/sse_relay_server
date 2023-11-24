@@ -14,6 +14,7 @@ class RedisGateway:
     async def listen(self, channel: str) -> AsyncGenerator[ServerSentEvent, None]:
         r = async_redis.from_url(self.redis_url)
         async with r.pubsub() as pubsub:
+            logger.debug(f"Listening to {channel}")
             await pubsub.subscribe(channel)
             while True:
                 message = await pubsub.get_message(ignore_subscribe_messages=True)
@@ -24,4 +25,5 @@ class RedisGateway:
 
     def notify(self, channel: str, sse_payload: dict) -> None:
         r = redis.from_url(self.redis_url)
+        logger.debug(f"Publishing to {channel}: {sse_payload}")
         r.publish(channel=channel, message=json.dumps(sse_payload))
