@@ -10,7 +10,7 @@ dependencies = [
     "uvicorn[standard]>=0.23.2",
     "dj_database_url>=2.1.0",
     "loguru>=0.7.2",
-    "psycopg[binary]>=3.1.10",
+    "psycopg[c]>=3.1.10",
     "redis>=5.0.0",
 ]
 readme = "README.md"
