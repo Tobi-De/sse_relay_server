@@ -1,5 +1,6 @@
 # sse-relay-server
 
+[![Docker](https://github.com/Tobi-De/sse_relay_server/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/Tobi-De/sse_relay_server/actions/workflows/docker-publish.yml)
 [![pypi](https://badge.fury.io/py/sse-relay-server.svg)](https://pypi.org/project/sse-relay-server/)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/Tobi-De/fuzzy-couscous/blob/main/LICENSE)
