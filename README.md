@@ -51,6 +51,7 @@ To configure sse-relay-server, you can use the following environment variables:
 - `ALLOWED_ORIGINS`: Comma-separated URLs allowed to request SSE connections.
 - `DATABASE_URL`: PostgreSQL database URL.
 - `REDIS_URL`: Redis URL (if you prefer to use Redis instead of PostgreSQL).
+- `RELAY_USE_PG`: Force the use of PostgreSQL if you have both `REDIS_URL` and `DATABASE_URL` set, but prefer to use PostgreSQL.
 - `RELAY_SERVER_DEBUG`: Boolean for enabling debug mode (default to False).
 - `LOG_LEVEL`: CRITICAL | ERROR | WARNING | INFO | DEBUG | TRACE   (default to INFO)
 
