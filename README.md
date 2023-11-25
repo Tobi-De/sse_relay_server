@@ -153,4 +153,4 @@ def notify(channel: str, sse_payload: dict) -> None:
 
 ## Stopping the SSE Connection
 
-As far as I know, there is no standard method for stopping an established SSE connection. The most straightforward solution is to send a specific event, such as one named `STOP``, and handle it on the frontend.
+As far as I know, there is no standard method for stopping an established SSE connection. The most straightforward solution is to send a specific event, such as one named `STOP`, and handle it on the frontend.
