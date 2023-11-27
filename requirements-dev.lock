@@ -9,7 +9,6 @@
 -e file:.
 annotated-types==0.6.0
 anyio==4.1.0
-asgi-correlation-id==4.2.0
 asgiref==3.7.2
 black==23.11.0
 cfgv==3.4.0

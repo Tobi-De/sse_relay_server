@@ -1,6 +1,6 @@
 [project]
 name = "sse-relay-server"
-version = "1.0.4"
+version = "1.0.5"
 description = "An SSE Relay Service: Perfect for Adding Real-Time Features to Your Django Project Without Introducing ASGI or Async Code."
 authors = [{ name = "Tobi DEGNON", email = "tobidegnon@proton.me" }]
 dependencies = [
@@ -13,7 +13,7 @@ dependencies = [
     "redis>=5.0.0",
     "structlog>=23.2.0",
     "rich>=13.7.0",
-    "asgi-correlation-id>=4.2.0",
+    # "asgi-correlation-id>=4.2.0",
     "pre-commit>=3.5.0",
 ]
 readme = "README.md"
