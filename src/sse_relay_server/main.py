@@ -105,12 +105,6 @@ def main():
         default=8001,
         help="server port",
     )
-    parser.add_argument(
-        "--reload",
-        action="store_true",
-        help="enable auto-reload",
-        default=False,
-    )
     parser.add_argument("--workers", type=int)
 
     args = parser.parse_args()
