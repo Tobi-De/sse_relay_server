@@ -40,7 +40,7 @@ class PostgresBroker:
             generator = connection.notifies()
             async for notify_message in generator:
                 payload = json.loads(notify_message.payload)
-                logger.debug(f"Received from {channel}: {payload}")
+                logger.debug(f"Data received from {channel}")
                 yield ServerSentEvent(**payload)
 
     def notify(self, channel: str, sse_payload: dict) -> None:

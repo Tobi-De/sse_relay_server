@@ -6,8 +6,6 @@ import structlog
 from structlog.types import EventDict
 from structlog.types import Processor
 
-# from ddtrace import tracer
-
 
 # https://github.com/hynek/structlog/issues/35#issuecomment-591321744
 def rename_event_key(_, __, event_dict: EventDict) -> EventDict:
@@ -30,18 +28,6 @@ def drop_color_message_key(_, __, event_dict: EventDict) -> EventDict:
     return event_dict
 
 
-# def tracer_injection(_, __, event_dict: EventDict) -> EventDict:
-#     # get correlation ids from current tracer context
-#     span = tracer.current_span()
-#     trace_id, span_id = (span.trace_id, span.span_id) if span else (None, None)
-
-#     # add ids to structlog event dictionary
-#     event_dict["dd.trace_id"] = str(trace_id or 0)
-#     event_dict["dd.span_id"] = str(span_id or 0)
-
-#     return event_dict
-
-
 def setup_logging(json_logs: bool = False, log_level: str = "INFO"):
     timestamper = structlog.processors.TimeStamper(fmt="iso")
 
@@ -52,7 +38,6 @@ def setup_logging(json_logs: bool = False, log_level: str = "INFO"):
         structlog.stdlib.PositionalArgumentsFormatter(),
         structlog.stdlib.ExtraAdder(),
         drop_color_message_key,
-        # tracer_injection,
         timestamper,
         structlog.processors.StackInfoRenderer(),
     ]

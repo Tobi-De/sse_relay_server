@@ -22,7 +22,7 @@ class RedisBroker:
                 message = await pubsub.get_message(ignore_subscribe_messages=True)
                 if message is not None:
                     payload = json.loads(message["data"].decode())
-                    logger.debug(f"Received from {channel}: {payload}")
+                    logger.debug(f"Data received from {channel}")
                     yield ServerSentEvent(**payload)
 
     def notify(self, channel: str, sse_payload: dict) -> None:
