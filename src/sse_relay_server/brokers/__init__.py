@@ -6,13 +6,13 @@ from sse_relay_server.config import get_postgres_url
 from sse_relay_server.config import get_redis_url
 from sse_starlette import ServerSentEvent
 
-from ..config import forced_posgres_use
+from ..config import get_forced_posgres_use
 from ._postgres import PostgresBroker
 from ._redis import RedisBroker
 
 
 def _select_broker():
-    if redis_url := get_redis_url() and not forced_posgres_use():
+    if (redis_url := get_redis_url()) and not get_forced_posgres_use():
         return RedisBroker(redis_url)
     if postgres_url := get_postgres_url():
         return PostgresBroker(postgres_url)

@@ -42,7 +42,7 @@ RUN adduser \
 #     --mount=type=bind,source=requirements.txt,target=requirements.txt \
 #     python -m pip install sse-server-relay
 
-RUN python -m pip install sse-relay-server==1.0.3
+RUN python -m pip install sse-relay-server==1.0.6
 
 # Switch to the non-privileged user to run the application.
 USER appuser
