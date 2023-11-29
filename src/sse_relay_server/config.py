@@ -33,5 +33,5 @@ def get_log_level() -> str:
     return os.getenv("LOG_LEVEL", "INFO")
 
 
-def forced_posgres_use() -> bool:
+def get_forced_posgres_use() -> bool:
     return os.getenv("RELAY_USE_PG", "False") == "True"
