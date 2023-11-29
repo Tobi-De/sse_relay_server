@@ -26,6 +26,7 @@ class PostgresBroker:
             "user": parsed_params["USER"],
             "password": parsed_params["PASSWORD"],
             "host": parsed_params["HOST"],
+            "port": parsed_params.get("PORT", 5432),
         }
 
     async def listen(self, channel: str) -> AsyncGenerator[ServerSentEvent, None]:
