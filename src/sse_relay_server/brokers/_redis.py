@@ -11,11 +11,11 @@ logger = structlog.stdlib.get_logger("brokers.postgres")
 
 class RedisBroker:
     def __init__(self, redis_url: str) -> None:
-        self.redis_url = redis_url
+        self._client = async_redis.from_url(redis_url)
+        self._sync_client = redis.from_url(redis_url)
 
     async def listen(self, channel: str) -> AsyncGenerator[ServerSentEvent, None]:
-        r = async_redis.from_url(self.redis_url)
-        async with r.pubsub() as pubsub:
+        async with self._client.pubsub() as pubsub:
             logger.debug(f"Listening to {channel}")
             await pubsub.subscribe(channel)
             while True:
@@ -26,6 +26,5 @@ class RedisBroker:
                     yield ServerSentEvent(**payload)
 
     def notify(self, channel: str, sse_payload: dict) -> None:
-        r = redis.from_url(self.redis_url)
         logger.debug(f"Publishing to {channel}: {sse_payload}")
-        r.publish(channel=channel, message=json.dumps(sse_payload))
+        self._sync_client.publish(channel=channel, message=json.dumps(sse_payload))

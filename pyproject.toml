@@ -1,6 +1,6 @@
 [project]
 name = "sse-relay-server"
-version = "1.0.8"
+version = "1.0.9"
 description = "An SSE Relay Service: Perfect for Adding Real-Time Features to Your Django Project Without Introducing ASGI or Async Code."
 authors = [{ name = "Tobi DEGNON", email = "tobidegnon@proton.me" }]
 dependencies = [
