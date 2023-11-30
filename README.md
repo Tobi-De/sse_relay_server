@@ -69,7 +69,7 @@ sse-relay-server --port 8001 --host 0.0.0.0 --workers 4
 For Docker users, override the running command as follows:
 
 ```sh
-docker run -it sse_relay_server sse-relay-server --port 8001 --host 0.0.0.0 --workers 4
+docker run -it sse_relay_server sse-relay-server --port 8001:8001 --workers 4
 ```
 
 ## Establishing an SSE Connection with the Relay Service

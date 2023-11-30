@@ -28,30 +28,24 @@ RUN adduser \
     --uid "${UID}" \
     appuser
 
-
-# Remove the problematic line from requirements.lock and create requirements.txt
-# RUN --mount=type=cache,target=/root/.cache/pip \
-#     --mount=type=bind,source=requirements.lock,target=requirements.lock \
-#     sed '/-e/d' requirements.lock > requirements.txt
-
 # Download dependencies as a separate step to take advantage of Docker's caching.
 # Leverage a cache mount to /root/.cache/pip to speed up subsequent builds.
 # Leverage a bind mount to requirements.txt to avoid having to copy them into
 # into this layer.
-# RUN --mount=type=cache,target=/root/.cache/pip \
-#     --mount=type=bind,source=requirements.txt,target=requirements.txt \
-#     python -m pip install sse-server-relay
-
-RUN python -m pip install sse-relay-server==1.0.9
+RUN --mount=type=cache,target=/root/.cache/pip \
+    --mount=type=bind,source=requirements.lock,target=requirements.txt \
+    sh -c "sed '/-e file/d' requirements.txt > /tmp/requirements.txt && python -m pip install -r /tmp/requirements.txt"
 
 # Switch to the non-privileged user to run the application.
 USER appuser
 
 # Copy the source code into the container.
-COPY . .
+COPY src/sse_relay_server /app/sse_relay_server
 
 # Expose the port that the application listens on.
-EXPOSE 80
+EXPOSE 8001
+
+ENV WORKER_COUNT=4
 
 # Run the application.
-CMD sse-relay-server
+CMD uvicorn sse_relay_server.main:app --workers $WORKER_COUNT --port 8001 --host 0.0.0.0
