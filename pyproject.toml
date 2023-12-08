@@ -1,16 +1,13 @@
 [project]
 name = "sse-relay-server"
-version = "1.0.10"
+version = "1.0.13"
 description = "An SSE Relay Service: Perfect for Adding Real-Time Features to Your Django Project Without Introducing ASGI or Async Code."
 authors = [{ name = "Tobi DEGNON", email = "tobidegnon@proton.me" }]
 dependencies = [
     "starlette>=0.31.1",
-    "sse-starlette>=1.8.1",
+    "sse-starlette>=1.8.2",
     "python-dotenv>=1.0.0",
     "uvicorn[standard]>=0.23.2",
-    "dj_database_url>=2.1.0",
-    "psycopg[binary]>=3.1.10",
-    "redis>=5.0.0",
     "structlog>=23.2.0",
     "rich>=13.7.0",
 ]
@@ -43,6 +40,15 @@ Repository = "https://github.com/Tobi-De/sse_relay_server"
 
 [project.scripts]
 sse-relay-server = "sse_relay_server.main:main"
+
+[project.optional-dependencies]
+redis = [
+    "hiredis>=2.2.3",
+    "redis>=5.0.1",
+]
+postgres = [
+    "psycopg[binary]>=3.1.14",
+]
 
 [build-system]
 requires = ["hatchling"]

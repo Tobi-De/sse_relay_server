@@ -4,23 +4,21 @@
 # last locked with the following flags:
 #   pre: false
 #   features: []
-#   all-features: false
+#   all-features: true
 
 -e file:.
 annotated-types==0.6.0
 anyio==4.1.0
-asgiref==3.7.2
 click==8.1.7
-dj-database-url==2.1.0
-django==4.2.7
 fastapi==0.1.17
 h11==0.14.0
+hiredis==2.2.3
 httptools==0.6.1
-idna==3.4
+idna==3.6
 markdown-it-py==3.0.0
 mdurl==0.1.2
-psycopg==3.1.13
-psycopg-binary==3.1.13
+psycopg==3.1.14
+psycopg-binary==3.1.14
 pydantic==2.5.2
 pydantic-core==2.14.5
 pygments==2.17.2
@@ -29,9 +27,8 @@ pyyaml==6.0.1
 redis==5.0.1
 rich==13.7.0
 sniffio==1.3.0
-sqlparse==0.4.4
-sse-starlette==1.8.1
-starlette==0.32.0.post1
+sse-starlette==1.8.2
+starlette==0.33.0
 structlog==23.2.0
 typing-extensions==4.8.0
 uvicorn==0.24.0.post1

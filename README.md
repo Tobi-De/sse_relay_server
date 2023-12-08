@@ -30,7 +30,7 @@ straightforward real-time capabilities without the need for Daphne and async Dja
 You can install sse-relay-server as a package using pip:
 
 ```sh
-pip install sse-relay-server
+pip install "sse-relay-server[postgres,redis]"
 ```
 
 Alternatively, you can use a container by pulling the Docker image:

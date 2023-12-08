@@ -1,7 +1,6 @@
 import json
 from typing import AsyncGenerator
 
-import dj_database_url
 import psycopg
 import structlog
 from sse_starlette import ServerSentEvent
@@ -14,24 +13,15 @@ logger = structlog.stdlib.get_logger("brokers.postgres")
 class PostgresBroker:
     def __init__(self, postgres_url: str) -> None:
         self.postgres_url = postgres_url
-        parsed_params = dj_database_url.parse(postgres_url)
-        if parsed_params["ENGINE"] not in [
-            "django.db.backends.postgresql_psycopg2",
-            "django.db.backends.postgresql",
-        ]:
+        if not (
+            self.postgres_url.startswith("postgres://")
+            or self.postgres_url.startswith("postgresql://")
+        ):
             raise ConfigurationError("Only PostgreSQL is supported")
-        self.db_params = {
-            "client_encoding": "UTF8",
-            "dbname": parsed_params["NAME"],
-            "user": parsed_params["USER"],
-            "password": parsed_params["PASSWORD"],
-            "host": parsed_params["HOST"],
-            "port": parsed_params.get("PORT", 5432),
-        }
 
     async def listen(self, channel: str) -> AsyncGenerator[ServerSentEvent, None]:
         connection = await psycopg.AsyncConnection.connect(
-            **self.db_params,
+            self.postgres_url,
             autocommit=True,
         )
 
@@ -46,7 +36,7 @@ class PostgresBroker:
 
     def notify(self, channel: str, sse_payload: dict) -> None:
         connection = psycopg.Connection.connect(
-            **self.db_params,
+            self.postgres_url,
             autocommit=True,
         )
         logger.debug(f"Publishing to {channel}: {sse_payload}")
