@@ -4,7 +4,6 @@ import argparse
 
 import structlog
 import uvicorn
-from sse_starlette.sse import EventSourceResponse
 from starlette.applications import Starlette
 from starlette.middleware import Middleware
 from starlette.middleware.cors import CORSMiddleware
@@ -16,6 +15,7 @@ from ._logging import setup_logging
 from .config import get_allowed_origins
 from .config import get_debug_value
 from .config import get_log_level
+from .sse_starlette.sse import EventSourceResponse
 
 
 setup_logging(json_logs=False, log_level=get_log_level())

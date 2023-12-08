@@ -4,9 +4,9 @@ from typing import Protocol
 from sse_relay_server.config import ConfigurationError
 from sse_relay_server.config import get_postgres_url
 from sse_relay_server.config import get_redis_url
-from sse_starlette import ServerSentEvent
 
 from ..config import get_forced_posgres_use
+from ..sse_starlette import ServerSentEvent
 from ._postgres import PostgresBroker
 from ._redis import RedisBroker
 

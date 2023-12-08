@@ -3,9 +3,9 @@ from typing import AsyncGenerator
 
 import psycopg
 import structlog
-from sse_starlette import ServerSentEvent
 
 from ..config import ConfigurationError
+from ..sse_starlette import ServerSentEvent
 
 logger = structlog.stdlib.get_logger("brokers.postgres")
 

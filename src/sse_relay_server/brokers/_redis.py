@@ -4,7 +4,8 @@ from typing import AsyncGenerator
 import redis
 import redis.asyncio as async_redis
 import structlog
-from sse_starlette import ServerSentEvent
+
+from ..sse_starlette import ServerSentEvent
 
 logger = structlog.stdlib.get_logger("brokers.postgres")
 
